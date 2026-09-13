@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
 
@@ -37,42 +38,44 @@ export default function Faq() {
   };
 
   return (
-    <section className="bg-white py-16">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-7xl">
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">
-            Frequently Asked <span className="text-pink-600">Questions</span>
+    <section className="bg-white py-10 sm:py-14 lg:py-16">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 container">
+        
+        <div className="mb-7 text-center sm:mb-9 lg:mb-10">
+          <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl lg:text-4xl">
+            Frequently Asked{' '}
+            <span className="text-pink-600">Questions</span>
           </h2>
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mx-auto mt-2 max-w-2xl text-xs leading-5 text-gray-500 sm:text-sm sm:leading-6">
             Find answers to some common questions about Dev Stack.
           </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="mx-auto max-w-7xl space-y-3">
           {faqList.map((faq, index) => (
             <div
               key={index}
-              className="rounded-xl border border-gray-200 bg-white"
+              className="overflow-hidden rounded-xl border border-gray-200 bg-white"
             >
               <button
                 onClick={() => handleToggle(index)}
-                className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                className="flex w-full items-center justify-between gap-3 p-4 text-left sm:gap-4 sm:p-5"
               >
-                <span className="text-sm font-semibold text-gray-800">
+                <span className="text-sm font-semibold leading-5 text-gray-800 sm:text-base sm:leading-6">
                   {faq.question}
                 </span>
 
                 <FaChevronDown
-                  className={`shrink-0 text-sm text-gray-500 transition-transform duration-300 ${
+                  className={`shrink-0 text-xs text-gray-500 transition-transform duration-300 sm:text-sm ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                 />
               </button>
 
               {openIndex === index && (
-                <div className="border-t border-gray-100 px-5 pb-5 pt-4">
-                  <p className="text-sm leading-relaxed text-gray-500">
+                <div className="border-t border-gray-100 px-4 pb-4 pt-3 sm:px-5 sm:pb-5 sm:pt-4">
+                  <p className="text-xs leading-5 text-gray-500 sm:text-sm sm:leading-6">
                     {faq.answer}
                   </p>
                 </div>
@@ -80,7 +83,9 @@ export default function Faq() {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
 }
+
