@@ -1,79 +1,85 @@
-import React, { useState } from 'react';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
+import { FaChevronDown } from 'react-icons/fa6';
 
 interface FaqItem {
   question: string;
   answer: string;
 }
 
+const PlayFetch = async (): Promise<FaqItem[]> => {
+  const res = await fetch('/faq.json');
+
+  if (!res.ok) {
+    throw new Error('Failed to load FAQ data');
+  }
+
+  const data = await res.json();
+
+  return data;
+};
+
 export default function Faq() {
+  const [faqList, setFaqList] = useState<FaqItem[]>([]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqList: FaqItem[] = [
-    {
-      question: "Where can we deploy the site?",
-      answer: "You can deploy the site anywhere you like, such as Netlify, Vercel, Cloudflare Pages, or any other hosting platform."
-    },
-    {
-      question: "Do we have to use TypeScript?",
-      answer: "No. You can use either TypeScript or JavaScript. This project is built using TypeScript."
-    },
-    {
-      question: "Can we change the title, logo, and colors?",
-      answer: "Yes. You can change the project title, logo, and color scheme as long as they remain relevant to the project."
-    },
-    {
-      question: "Where do we get the technology logos and icons?",
-      answer: "You can use technology icon URLs from different sources. TechIcons is one useful source for clean technology logos."
-    }
-  ];
+  useEffect(() => {
+    PlayFetch()
+      .then((data) => {
+        setFaqList(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
-  const toggleFAQ = (index: number) => {
+  const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Title Section */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-            Common <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">FAQ</span>
+    <section className="bg-white py-16">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 w-7xl">
+        <div className="mb-10 text-center">
+          <h2 className="text-3xl font-extrabold text-gray-900">
+            Frequently Asked <span className="text-pink-600">Questions</span>
           </h2>
-          <p className="text-sm sm:text-base text-gray-500 mt-2">
-            Frequently asked questions about Dev Stack.
+
+          <p className="mt-2 text-sm text-gray-500">
+            Find answers to some common questions about Dev Stack.
           </p>
         </div>
 
-        {/* FAQ List */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqList.map((faq, index) => (
-            <div 
-              key={index} 
-              className="border border-gray-200 rounded-2xl transition-all duration-200 hover:border-gray-300 overflow-hidden bg-white shadow-sm"
+            <div
+              key={index}
+              className="rounded-xl border border-gray-200 bg-white"
             >
               <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 focus:outline-none"
+                onClick={() => handleToggle(index)}
+                className="flex w-full items-center justify-between gap-4 p-5 text-left"
               >
-                <span className="flex items-center gap-3 text-sm sm:text-base">
-                  <span className="text-gray-500 text-xs">
-                    {openIndex === index ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
-                  </span>
+                <span className="text-sm font-semibold text-gray-800">
                   {faq.question}
                 </span>
+
+                <FaChevronDown
+                  className={`shrink-0 text-sm text-gray-500 transition-transform duration-300 ${
+                    openIndex === index ? 'rotate-180' : ''
+                  }`}
+                />
               </button>
 
               {openIndex === index && (
-                <div className="px-6 pb-5 pt-0 text-sm text-gray-600 leading-relaxed border-t border-gray-100 mt-1 pt-3">
-                  {faq.answer}
+                <div className="border-t border-gray-100 px-5 pb-5 pt-4">
+                  <p className="text-sm leading-relaxed text-gray-500">
+                    {faq.answer}
+                  </p>
                 </div>
               )}
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
