@@ -4,6 +4,7 @@ import Hero from './Components/Hero';
 import { Suspense } from 'react';
 import TechnologyGrid from './Components/TechnologyGrid';
 import { ToastContainer } from 'react-toastify'
+import Faq from './Components/Faq';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
         <TechnologyGrid />
       </Suspense>
+      <Faq></Faq>
       <ToastContainer />
     </>
   );
