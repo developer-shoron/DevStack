@@ -20,59 +20,41 @@ Dev Stack is a modern and responsive web application where developers can explor
 
 ## 📚 React Questions & Answers
 
-### 1. What is JSX, and why is it used in React?
+1. What is JSX, and why is it used in React?
 
-JSX is a syntax that lets us write HTML-like code inside JavaScript or TypeScript. React uses JSX to make UI components easier to write and understand.
+JSX holo React-e HTML-er moto syntax lekhar ekta way. Eta use korle UI code lekha and bujha onek easy hoy.
 
-### 2. What is the difference between props and state?
+2. What is the difference between props and state?
 
-**Props** are data passed from a parent component to a child component. They are read-only.
+Props parent component theke child component-e data pathanor jonno use hoy. Ar state component-er nijer data manage korar jonno use hoy, and eta change hote pare.
 
-**State** is data managed inside a component and can change over time.
+3. What does the useState hook do, and where did you use it in this project?
 
-### 3. What does the `useState` hook do, and where did you use it in this project?
+useState component-er data store and update korte help kore. Ei project-e ami eta technology list, selected stack, FAQ-er open item, and loading state manage korar jonno use korechi.
 
-`useState` lets us create and manage changing data inside a React component.
+4. What does the useEffect hook do, and why did you need it to load the JSON data?
 
-In this project, I used it to manage the selected technology stack, FAQ open state, technology data, and loading-related state.
+useEffect component render howar por kono specific kaj run korte use hoy. Ami JSON file theke technology and FAQ data fetch korar jonno useEffect use korechi.
 
-### 4. What does the `useEffect` hook do, and why did you need it to load the JSON data?
+5. Why does every item in a .map() list need a unique key prop?
 
-`useEffect` lets us run code after a component renders.
+key diye React bujhte pare list-er kon item-ta kon item. Tai kono item add, remove ba update hole React efficiently UI update korte pare.
 
-I used it to fetch the technology and FAQ JSON data when the components load.
+6. What is conditional rendering? Show one place you used it.
 
-### 5. Why does every item in a `.map()` list need a unique `key` prop?
+Conditional rendering mane condition-er upor depend kore different UI show kora.
 
-React uses the `key` to identify each item in a list. It helps React understand which items changed, were added, or were removed.
+Ami stack section-e eta use korechi. Stack empty thakle empty message show kori, ar technology add korle selected technology-gulo show kori.
 
-### 6. What is conditional rendering? Show one place you used it.
-
-Conditional rendering means showing different UI based on a condition.
-
-For example, in the stack section, I show an empty message when there are no selected technologies:
-
-```tsx
 {stack.length === 0 ? (
   <p>Your stack is empty.</p>
 ) : (
   <StackList />
 )}
-```
+7. How do you pass data from a parent component to a child component, and how does a child send something back to the parent?
 
-### 7. How do you pass data from a parent component to a child component, and how does a child send something back to the parent?
+Parent component theke child component-e data props er maddhome pathano hoy. Ar child theke parent-e kichu pathate hole parent theke ekta function prop hisebe child-e pathano hoy, then child oi function call kore.
 
-A parent passes data to a child through **props**.
-
-A child can send something back by calling a function passed from the parent as a prop.
-
-For example:
-
-```tsx
-<TechnologyCard
-  tech={tech}
-  onAdd={handleAddToStack}
-/>
-```
+Ei project-e TechnologyGrid theke TechnologyCard-e tech and onAdd pass korechi.
 
 Here, `tech` and `onAdd` are passed from the parent to the child. The child calls `onAdd(tech)` when the user clicks the button.
