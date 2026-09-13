@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import TechnologyGrid from './Components/TechnologyGrid';
 import { ToastContainer } from 'react-toastify'
 import Faq from './Components/Faq';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       </Suspense>
       <Faq></Faq>
       <ToastContainer />
+      <Footer></Footer>
     </>
   );
 }
